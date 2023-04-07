@@ -106,6 +106,30 @@ a {
   }
 }
 
+#searchContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#searchBarMain {
+  position: absolute;
+  top: 30vh;
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+
+.searchBtn {
+  height: 5vh;
+  width: 5vh;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.searchBtn:hover {
+  cursor: pointer;
+}
 .searchBar {
   width: 50vw;
   border: 1px solid white;
@@ -119,6 +143,9 @@ a {
 .searchResults {
   list-style-type: none;
   padding: 2vw;
+  position: absolute;
+  top: 35vh;
+  left: 25vw;
 }
 
 .hide {

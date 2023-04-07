@@ -54,22 +54,43 @@ const Search = () => {
     }
   });
 
+  function addSearchItem() {
+    let list = masterList;
+    masterList.map((val) => {
+      if (val.search === searchVal) {
+        let item = {
+          search: searchVal,
+          clicked: true,
+        };
+        list.push(item);
+      }
+    });
+    setMasterList(...list);
+  }
+
+  //need to fix this
+
   return (
     <div id="searchContainer">
-      <input
-        type="text"
-        placeholder="Search..."
-        className="searchBar"
-        onClick={() => {
-          setShowSearch("show");
-        }}
-        value={searchVal}
-        onChange={(e) => {
-          searchForResults(e.target.value);
-          setSearchVal(e.target.value);
-          setFirstSearch("hide");
-        }}
-      />
+      <div id="searchBarMain">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="searchBar"
+          onClick={() => {
+            setShowSearch("show");
+          }}
+          value={searchVal}
+          onChange={(e) => {
+            searchForResults(e.target.value);
+            setSearchVal(e.target.value);
+            setFirstSearch("hide");
+          }}
+        />
+        <button className="searchBtn" onClick={addSearchItem}>
+          Go
+        </button>
+      </div>
       <div>
         <ul className={`searchResults ${showSearch}`}>
           <p className={firstSearch}>Related to your recent searches</p>
