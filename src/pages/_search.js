@@ -95,11 +95,24 @@ const Search = () => {
     setFirstSearch("show");
   }
 
-  //need to fix this
+  function checkClick(e) {
+    let name = e.target.className;
+    console.log(name);
+    if (
+      name === "searchBar" ||
+      name === "searchBtn" ||
+      name === "searchList" ||
+      name === "searchResults show"
+    ) {
+      return;
+    } else {
+      setShowSearch("hide");
+    }
+  }
 
   return (
-    <div id="searchContainer">
-      <div id="searchBarMain">
+    <div id="searchContainer" onClick={checkClick}>
+      <div className={`searchBarMain `}>
         <input
           type="text"
           placeholder="Search..."
@@ -115,18 +128,22 @@ const Search = () => {
           }}
           ref={inputRef}
         />
-        <button className="searchBtn" onClick={addSearchItem}>
-          Go
-        </button>
       </div>
-      <div>
-        <ul className={`searchResults ${showSearch}`}>
-          <p className={firstSearch}>Related to your recent searches</p>
+      <div className={`searchResults ${showSearch}`}>
+        <ul className="searchUL">
+          {/* <p className={firstSearch}>Related to your recent searches</p> */}
           {resultsList.map((val, index) => {
-            return <li key={`${val.search}-li`}>{val.search}</li>;
+            return (
+              <li key={`${val.search}-li`} className="searchList">
+                {val.search}
+              </li>
+            );
           })}
         </ul>
       </div>
+      <button className="searchBtn" onClick={addSearchItem}>
+        Go
+      </button>
     </div>
   );
 };

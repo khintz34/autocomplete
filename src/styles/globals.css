@@ -108,16 +108,21 @@ a {
 
 #searchContainer {
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
 }
 
-#searchBarMain {
+.searchBarMain {
   position: absolute;
   top: 30vh;
   display: flex;
   flex-direction: row;
   gap: 2vw;
+  overflow: hidden;
+  height: 10vh;
+  width: 50vw;
+  background-color: blue;
 }
 
 .searchBtn {
@@ -138,20 +143,44 @@ a {
   background-color: white;
   padding-left: 2vw;
   color: black;
+  height: 7vh;
 }
 
 .searchResults {
   list-style-type: none;
-  padding: 2vw;
+  /* padding: 2vw; */
   position: absolute;
   top: 35vh;
-  left: 25vw;
+  left: 22.5vw;
+  width: 49vw;
+  background-color: white;
+  color: black;
+  display: block;
+  transition: height 1s ease;
 }
 
 .hide {
-  display: none;
+  /* display: none; */
+  height: 0vh;
+  /* max-height: 0vh; */
+  /* background-color: white; */
 }
 
 .show {
-  display: block;
+  /* display: block; */
+  height: 50vh;
+  /* background-color: black; */
+}
+
+.searchUL {
+  list-style-type: none;
+  padding: 2vw;
+}
+
+.up {
+  height: 7vh;
+}
+
+.down {
+  height: 50vh;
 }
