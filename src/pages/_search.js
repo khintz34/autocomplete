@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SearchResults } from "../assets/dataList";
-// import "@/styles/Search.module.css";
+import { capAll } from "@/assets/utils";
 
 const Search = () => {
   let newList = SearchResults.sort((a, b) => {
@@ -17,11 +17,28 @@ const Search = () => {
 
   const [showSearch, setShowSearch] = useState("hide");
   const [searchVal, setSearchVal] = useState("");
-  const [resultsList, setResultsList] = useState(searchedArray);
   const [masterList, setMasterList] = useState(newList);
   const [searching, setSearching] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [firstSearch, setFirstSearch] = useState("show");
+  const inputRef = useRef();
+  const [recentList, setRecentList] = useState(
+    SearchResults.filter(function (el) {
+      return el.clicked === true;
+    })
+  );
+  const [resultsList, setResultsList] = useState(searchedArray);
+
+  useEffect(() => {
+    let list = masterList.filter(function (el) {
+      return el.clicked === true;
+    });
+    setResultsList(
+      list.sort((a, b) => {
+        return a.search < b.search ? -1 : 1;
+      })
+    );
+  }, [masterList]);
 
   function searchForResults(val) {
     if (val === "") {
@@ -38,14 +55,13 @@ const Search = () => {
       let current = splitResult.slice(0, length);
       if (
         current.length === split.length &&
-        current.every((value, index) => value === split[index])
+        current.every((value, index) => value === split[index].toLowerCase())
       ) {
         array.push(result);
       }
     });
 
     setResultsList([...array]);
-    // setMasterList([...array]);
   }
 
   useEffect(() => {
@@ -56,16 +72,27 @@ const Search = () => {
 
   function addSearchItem() {
     let list = masterList;
-    masterList.map((val) => {
-      if (val.search === searchVal) {
-        let item = {
-          search: searchVal,
-          clicked: true,
-        };
-        list.push(item);
+    let found = false;
+    list.map((val, index) => {
+      if (val.search.toLowerCase() === searchVal.toLowerCase()) {
+        found = true;
+        inputRef.current.value = "";
+        setFirstSearch("show");
+        list[index].clicked = true;
+        setMasterList([...list]);
+        return;
       }
     });
-    setMasterList(...list);
+    if (!found) {
+      let item = {
+        search: capAll(searchVal),
+        clicked: true,
+      };
+      list.push(item);
+    }
+    inputRef.current.value = "";
+    setMasterList([...list]);
+    setFirstSearch("show");
   }
 
   //need to fix this
@@ -86,6 +113,7 @@ const Search = () => {
             setSearchVal(e.target.value);
             setFirstSearch("hide");
           }}
+          ref={inputRef}
         />
         <button className="searchBtn" onClick={addSearchItem}>
           Go
