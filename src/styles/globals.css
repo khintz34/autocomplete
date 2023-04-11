@@ -187,8 +187,25 @@ input[type="text"] {
 .first {
   margin-bottom: 1vh;
   font-style: italic;
+  width: 70vw;
 }
 
 .second {
   display: none;
+}
+
+@media (max-width: 500px) {
+  .searchBarMain {
+    width: 80vw;
+    top: 20vh;
+  }
+
+  input[type="text"] {
+    width: 65vw;
+  }
+
+  .searchBtn {
+    right: 12vw;
+    top: 21.5vh;
+  }
 }
