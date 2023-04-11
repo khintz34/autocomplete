@@ -20,7 +20,7 @@ const Search = () => {
   const [masterList, setMasterList] = useState(newList);
   const [searching, setSearching] = useState(false);
   const [searchList, setSearchList] = useState([]);
-  const [firstSearch, setFirstSearch] = useState("show");
+  const [firstSearch, setFirstSearch] = useState("first");
   const inputRef = useRef();
   const [recentList, setRecentList] = useState(
     SearchResults.filter(function (el) {
@@ -66,7 +66,7 @@ const Search = () => {
 
   useEffect(() => {
     if (searchVal === "") {
-      setFirstSearch("show");
+      setFirstSearch("first");
     }
   });
 
@@ -80,7 +80,6 @@ const Search = () => {
         setFirstSearch("show");
         list[index].clicked = true;
         setMasterList([...list]);
-        console.log(inputRef.current);
         return;
       }
     });
@@ -93,12 +92,12 @@ const Search = () => {
     }
     inputRef.current.value = "";
     setMasterList([...list]);
-    setFirstSearch("show");
+    setFirstSearch("first");
+    setShowSearch("hide");
   }
 
   function checkClick(e) {
     let name = e.target.className;
-    console.log(name);
     if (
       name === "searchBar" ||
       name === "searchBtn" ||
@@ -125,16 +124,23 @@ const Search = () => {
           onChange={(e) => {
             searchForResults(e.target.value);
             setSearchVal(e.target.value);
-            setFirstSearch("hide");
+            setFirstSearch("second");
           }}
           ref={inputRef}
         />
         <div className={`searchResults `}>
           <ul className="searchUL">
-            {/* <p className={firstSearch}>Related to your recent searches</p> */}
+            <p className={firstSearch}>Related to your recent searches</p>
             {resultsList.map((val, index) => {
               return (
-                <li key={`${val.search}-li`} className="searchList">
+                <li
+                  key={`${val.search}-li`}
+                  className="searchList"
+                  onClick={(e) => {
+                    setSearchVal(val.search);
+                    setShowSearch("hide");
+                  }}
+                >
                   {val.search}
                 </li>
               );

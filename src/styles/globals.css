@@ -164,6 +164,13 @@ input[type="text"] {
   display: block;
 }
 
+.searchList:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  padding-left: 2vw;
+  font-weight: bold;
+}
+
 .hide {
   height: 8vh;
 }
@@ -174,13 +181,14 @@ input[type="text"] {
 
 .searchUL {
   list-style-type: none;
-  padding: 2vw;
+  padding: 1vh 2vw;
 }
 
-.up {
-  height: 7vh;
+.first {
+  margin-bottom: 1vh;
+  font-style: italic;
 }
 
-.down {
-  height: 50vh;
+.second {
+  display: none;
 }
