@@ -80,6 +80,7 @@ const Search = () => {
         setFirstSearch("show");
         list[index].clicked = true;
         setMasterList([...list]);
+        console.log(inputRef.current);
         return;
       }
     });
@@ -112,7 +113,7 @@ const Search = () => {
 
   return (
     <div id="searchContainer" onClick={checkClick}>
-      <div className={`searchBarMain `}>
+      <div className={`searchBarMain ${showSearch}`}>
         <input
           type="text"
           placeholder="Search..."
@@ -128,19 +129,20 @@ const Search = () => {
           }}
           ref={inputRef}
         />
+        <div className={`searchResults `}>
+          <ul className="searchUL">
+            {/* <p className={firstSearch}>Related to your recent searches</p> */}
+            {resultsList.map((val, index) => {
+              return (
+                <li key={`${val.search}-li`} className="searchList">
+                  {val.search}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-      <div className={`searchResults ${showSearch}`}>
-        <ul className="searchUL">
-          {/* <p className={firstSearch}>Related to your recent searches</p> */}
-          {resultsList.map((val, index) => {
-            return (
-              <li key={`${val.search}-li`} className="searchList">
-                {val.search}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+
       <button className="searchBtn" onClick={addSearchItem}>
         Go
       </button>
