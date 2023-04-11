@@ -28,6 +28,7 @@ const Search = () => {
     })
   );
   const [resultsList, setResultsList] = useState(searchedArray);
+  const [num, setNum] = useState(0);
 
   useEffect(() => {
     let list = masterList.filter(function (el) {
@@ -110,8 +111,28 @@ const Search = () => {
     }
   }
 
+  function handleKeydown(e) {
+    setShowSearch("show");
+    let activeNum = num;
+    if (e.key === "ArrowDown") {
+      setNum((index) => Math.min(resultsList.length - 1, index + 1));
+      if (num !== resultsList.length - 1) {
+        activeNum += 1;
+      }
+      setSearchVal(resultsList[activeNum].search);
+    } else if (event.key === "ArrowUp") {
+      setNum((index) => Math.max(0, index - 1));
+      if (num !== 0) {
+        activeNum -= 1;
+      }
+      setSearchVal(resultsList[activeNum].search);
+    } else if (e.key === "Enter") {
+      addSearchItem();
+    }
+  }
+
   return (
-    <div id="searchContainer" onClick={checkClick}>
+    <div id="searchContainer" onClick={checkClick} onKeyDown={handleKeydown}>
       <div className={`searchBarMain ${showSearch}`}>
         <input
           type="text"
@@ -135,7 +156,10 @@ const Search = () => {
               return (
                 <li
                   key={`${val.search}-li`}
-                  className="searchList"
+                  //   className="searchList"
+                  className={
+                    num === index ? "searchList selected" : "searchList"
+                  }
                   onClick={(e) => {
                     setSearchVal(val.search);
                     setShowSearch("hide");

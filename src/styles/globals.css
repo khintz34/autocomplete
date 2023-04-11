@@ -130,6 +130,7 @@ a {
 
 input[type="text"] {
   height: 8vh;
+  font-size: 16px;
 }
 
 .searchBtn {
@@ -169,6 +170,7 @@ input[type="text"] {
   transform: scale(1.1);
   padding-left: 2vw;
   font-weight: bold;
+  background-color: lightgray;
 }
 
 .hide {
@@ -194,6 +196,12 @@ input[type="text"] {
   display: none;
 }
 
+.selected {
+  transform: scale(1.1);
+  padding-left: 2vw;
+  font-weight: bold;
+}
+
 @media (max-width: 500px) {
   .searchBarMain {
     width: 80vw;
@@ -207,5 +215,11 @@ input[type="text"] {
   .searchBtn {
     right: 12vw;
     top: 21.5vh;
+  }
+
+  .selected {
+    transform: none;
+    font-weight: normal;
+    padding-left: 0vw;
   }
 }
